@@ -1,0 +1,37 @@
+<ion-content padding>
+  <h1 text-center>
+    <ion-icon name="pulse" color="primary" class="logo"></ion-icon>
+  </h1>
+
+  <form [formGroup]="autenticationForm" (submit)="onSubmit()">
+    <ion-item>
+      <ion-icon name="person" color="primary" padding slot="start"></ion-icon>
+      <ion-input name="name" formControlName="name" color="primary" placeholder="Nome"></ion-input>
+      <ion-note color="danger" *ngIf="name.dirty && name.hasError('required')" slot="end">Obrigatorio!</ion-note>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="mail" color="primary" padding slot="start"></ion-icon>
+      <ion-input name="email" formControlName="email" color="primary" placeholder="Email"></ion-input>
+      <ion-note color="danger" *ngIf="email.dirty && email.hasError('required')" slot="end">Obrigatorio!</ion-note>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="lock" color="primary" padding slot="start"></ion-icon>
+      <ion-input name="password" formControlName="password" color="primary" placeholder="Password" type="password">
+      </ion-input>
+      <ion-note color="danger" *ngIf="password.dirty && password.hasError('required')" slot="end">Obrigatorio!
+      </ion-note>
+      <ion-note color="danger" *ngIf="password.dirty && password.hasError('minlength')" slot="end">6 digitos!</ion-note>
+
+    </ion-item>
+  </form>
+
+  <ion-button type="submit" expand="block" padding>CADASTRAR</ion-button>
+  <ion-button expand="block" padding fill="clear">JÁ POSSUO UMA CONTA</ion-button>
+  <ion-button expand="block" padding>
+    <ion-icon name="logo-facebook" color="white" padding slot="start"></ion-icon>
+    LOGIN COM FACEBOOK
+  </ion-button>
+</ion-content>
