@@ -4,11 +4,11 @@
   </h1>
 
   <form [formGroup]="autenticationForm" (submit)="onSubmit()">
+    
     <ion-item>
       <ion-icon name="person" color="primary" padding slot="start"></ion-icon>
       <ion-input name="name" formControlName="name" color="primary" placeholder="Nome"></ion-input>
       <ion-note color="danger" *ngIf="name.dirty && name.hasError('required')" slot="end">Obrigatorio!</ion-note>
-
     </ion-item>
 
     <ion-item>
