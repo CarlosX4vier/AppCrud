@@ -3,8 +3,12 @@
     <ion-icon name="pulse" color="primary" class="logo"></ion-icon>
   </h1>
 
+  <!-- O [formGroup] é o componente de formulario criado no script
+  (submit) é a função que será chamada ao enviar o formulario-->
   <form [formGroup]="autenticationForm" (submit)="onSubmit()">
-    
+
+    <!--*ngIf são as condições para que o ion-note seja exibido 
+    formControlName é referente ao nome do campo no autenticationForm -->
     <ion-item>
       <ion-icon name="person" color="primary" padding slot="start"></ion-icon>
       <ion-input name="name" formControlName="name" color="primary" placeholder="Nome"></ion-input>

@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
+//Modulos do Firebase e FirebaseAuth para Angular
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   }
 ];
 
+//Modulo ReactiveFormsModule deve ser colocado
 @NgModule({
   imports: [
     CommonModule,

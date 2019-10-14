@@ -3,8 +3,15 @@
     <ion-icon name="pulse" color="primary" class="logo"></ion-icon>
   </h1>
 
+  <!-- O [formGroup] é o componente de formulario criado no script
+  (submit) é a função que será chamada ao enviar o formulario-->
   <form [formGroup]="autenticaForm" (submit)="onSubmit()">
+    <!-- O componente ng-container faz com que se a condição do parametro
+    *ngIf for verdadeiro, aquele conteudo é exibido-->
     <ng-container *ngIf="!configs.ehLogin">
+
+      <!--*ngIf são as condições para que o ion-note seja exibido 
+    formControlName é referente ao nome do campo no autenticationForm -->
       <ion-item>
         <ion-icon name="person" color="primary" padding slot="start"></ion-icon>
         <ion-input name="nome" formControlName="nome" color="primary" placeholder="Nome"></ion-input>
@@ -15,18 +22,19 @@
 
     <ion-item>
       <ion-icon name="mail" color="primary" padding slot="start"></ion-icon>
-      <ion-input name="email" formControlName="email" color="primary"
-        placeholder="Email"></ion-input>
-        <ion-note *ngIf="email.dirty && email.hasError('required')" >Obrigatorio!</ion-note>
+      <ion-input name="email" formControlName="email" color="primary" placeholder="Email"></ion-input>
+      <ion-note *ngIf="email.dirty && email.hasError('required')">Obrigatorio!</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-icon name="key" color="primary" padding slot="start"></ion-icon>
-      <ion-input name="password" formControlName="password"
-        type="password" color="primary" placeholder="Password"></ion-input>
+      <ion-input name="password" formControlName="password" type="password" color="primary" placeholder="Password">
+      </ion-input>
       <ion-note *ngIf="password.dirty && password.hasError('required')">Obrigatorio</ion-note>
     </ion-item>
 
+    <!-- As chaves duplas significam que uma tupla está sendo acessada no JavaScript-->
+    <!-- Quando o botão é clicado, a função do parametro (click) é chamada-->
     <ion-button type="submit" expand="block" padding>{{configs.acaoPrimaria}}</ion-button>
     <ion-button expand="block" (click)="alternaTela()" padding fill="clear">{{configs.acaoSecundaria}}</ion-button>
     <ion-button expand="block" padding>

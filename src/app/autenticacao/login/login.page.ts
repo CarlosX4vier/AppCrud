@@ -12,14 +12,14 @@ export class LoginPage implements OnInit {
   autenticaForm: FormGroup;
 
   // Configuração que define se ação é cadastro nova conta ou login
-  configs ={
-    ehLogin:true, // Indica se estamos executando login(true), nova conta (false)
-    acaoPrimaria:'Login', //rotulo do botao de ação primaria
+  configs = {
+    ehLogin: true, // Indica se estamos executando login(true), nova conta (false)
+    acaoPrimaria: 'Login', //rotulo do botao de ação primaria
     acaoSecundaria: 'Criar Conta' // rotulo do botao de ação secundaria
   };
 
-  //criando validador
-  private nomeControl = new FormControl('',[Validators.required, Validators.minLength(3)]);
+  //Criando validador do nome separado do autenticaForm para que ele seja inserido depois
+  private nomeControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
   constructor(private fb: FormBuilder) { }
 
@@ -27,6 +27,7 @@ export class LoginPage implements OnInit {
     this.createForm();
   }
 
+  //Função que cria formulario e seus validadores de login
   private createForm(): void {
     this.autenticaForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -34,11 +35,12 @@ export class LoginPage implements OnInit {
     });
   }
 
+  //Função chamada quando o formulario é enviado
   onSubmit(): void {
     console.log("ta funcionando", this.autenticaForm);
   }
 
-  get nome(): FormControl{
+  get nome(): FormControl {
     return <FormControl>this.autenticaForm.get('nome');
   }
 
@@ -50,15 +52,21 @@ export class LoginPage implements OnInit {
     return <FormControl>this.autenticaForm.get('password');
   }
 
-  alternaTela() : void{
+  //Quando o usuario clicar para criar conta ou que já tem conta
+  alternaTela(): void {
+    //Troca o valor da variavel configs.ehLogin
     this.configs.ehLogin = !this.configs.ehLogin;
 
-    if(this.configs.ehLogin){
+    if (this.configs.ehLogin) {//ehLogin == true
+      //Coloca os valores dos botoes
       this.configs.acaoPrimaria = 'Login';
       this.configs.acaoSecundaria = 'Criar conta';
-    this.autenticaForm.removeControl('nome');
-    }else{//ehLogin == false
-      this.autenticaForm.addControl('nome',this.nomeControl);
+      //Remove o controlador do campo nome
+      this.autenticaForm.removeControl('nome');
+    } else {//ehLogin == false
+      //Adiciona o controlador do campo nome
+      this.autenticaForm.addControl('nome', this.nomeControl);
+      //Coloca os valores dos botoes
       this.configs.acaoPrimaria = 'Cadastrar';
       this.configs.acaoSecundaria = 'Já possuo uma conta';
     }
