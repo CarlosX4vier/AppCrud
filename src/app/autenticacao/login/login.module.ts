@@ -10,6 +10,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 
 import { LoginPage } from './login.page';
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    AngularFireModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],
   declarations: [LoginPage]
