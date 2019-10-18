@@ -5,7 +5,8 @@
 
   <!-- O [formGroup] é o componente de formulario criado no script
   (submit) é a função que será chamada ao enviar o formulario-->
-  <form [formGroup]="autenticaForm" (submit)="onSubmit()">
+  <form [formGroup]="autenticaForm" (submit)="onSubmit('email')">
+
     <!-- O componente ng-container faz com que se a condição do parametro
     *ngIf for verdadeiro, aquele conteudo é exibido-->
     <ng-container *ngIf="!configs.ehLogin">
@@ -38,7 +39,7 @@
     <ion-button type="submit" expand="block" padding>{{configs.acaoPrimaria}}</ion-button>
     <ion-button expand="block" (click)="alternaTela()" padding fill="clear">{{configs.acaoSecundaria}}</ion-button>
     <ion-button expand="block" padding>
-      <ion-icon name="logo-facebook" color="white" padding slot="start"></ion-icon>
+      <ion-icon name="logo-facebook" (click)="onSubmit('facebook')" color="white" padding slot="start"></ion-icon>
       LOGIN COM FACEBOOK
     </ion-button>
   </form>

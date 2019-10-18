@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
+import { AutenticacaoService } from 'src/app/core/services/autenticacao.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginPage implements OnInit {
   //Criando validador do nome separado do autenticaForm para que ele seja inserido depois
   private nomeControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private servicoAutenticacao: AutenticacaoService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.createForm();
@@ -36,7 +37,7 @@ export class LoginPage implements OnInit {
   }
 
   //Função chamada quando o formulario é enviado
-  onSubmit(): void {
+  async onSubmit(provedor: string): Promise<void> {
     console.log("ta funcionando", this.autenticaForm);
   }
 
