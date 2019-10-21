@@ -38,8 +38,8 @@
     <!-- Quando o botão é clicado, a função do parametro (click) é chamada-->
     <ion-button type="submit" expand="block" padding>{{configs.acaoPrimaria}}</ion-button>
     <ion-button expand="block" (click)="alternaTela()" padding fill="clear">{{configs.acaoSecundaria}}</ion-button>
-    <ion-button expand="block" padding>
-      <ion-icon name="logo-facebook" (click)="onSubmit('facebook')" color="white" padding slot="start"></ion-icon>
+    <ion-button expand="block" (click)="onSubmit('facebook')" padding>
+      <ion-icon name="logo-facebook"  color="white" padding slot="start"></ion-icon>
       LOGIN COM FACEBOOK
     </ion-button>
   </form>

@@ -24,7 +24,7 @@ export class AutenticacaoService {
   }
 
   //Responsavel por chamar as funções de cadastro e login
-  private autenticacao(ehLogin: boolean, nome: string, email: string, senha: string): Promise<auth.UserCredential> {
+   autenticacao(ehLogin: boolean, nome: string, email: string, senha: string): Promise<auth.UserCredential> {
     if (ehLogin) {
       return this.loginComEmail(email, senha);
     } else {

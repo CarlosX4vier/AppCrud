@@ -11,6 +11,7 @@ export class LoginPage implements OnInit {
 
   //formGroup repsonsavel pela autenticacao do formulario login
   autenticaForm: FormGroup;
+  private nomeTmp: string;
 
   // Configuração que define se ação é cadastro nova conta ou login
   configs = {
@@ -39,6 +40,21 @@ export class LoginPage implements OnInit {
   //Função chamada quando o formulario é enviado
   async onSubmit(provedor: string): Promise<void> {
     console.log("ta funcionando", this.autenticaForm);
+    if (this.configs.ehLogin) {
+      this.nomeTmp = "";
+    } else {
+      this.nomeTmp = this.autenticaForm.get("nome").value;
+    }
+
+    try {
+      const credencial = await this.servicoAutenticacao.autenticacao(this.configs.ehLogin, this.nomeTmp, this.autenticaForm.get('email').value, this.autenticaForm.get('password').value);
+      console.log("Login com sucesso", credencial);
+      console.log("redirecionando...");
+
+    } catch (e) {
+      console.log("ERROR", e);
+
+    }
   }
 
   get nome(): FormControl {
