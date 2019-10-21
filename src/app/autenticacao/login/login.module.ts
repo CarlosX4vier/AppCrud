@@ -25,9 +25,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     IonicModule,
-    RouterModule.forChild(routes),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    RouterModule.forChild(routes)
   ],
   declarations: [LoginPage]
 })
