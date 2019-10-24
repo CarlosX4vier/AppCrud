@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
   //Criando validador do nome separado do autenticaForm para que ele seja inserido depois
   private nomeControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
-  constructor(private navCtrl: NavController,private servicoAutenticacao: AutenticacaoService, private fb: FormBuilder, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
+  constructor(private navCtrl: NavController, private servicoAutenticacao: AutenticacaoService, private fb: FormBuilder, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.createForm();
@@ -37,50 +37,6 @@ export class LoginPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-  }
-
-  //Função chamada quando o formulario é enviado
-  async onSubmit(provedor: string): Promise<void> {
-    console.log("ta funcionando", this.autenticaForm);
-    const loading = await this.loading();
-    if (this.configs.ehLogin) {
-      this.nomeTmp = "";
-    } else {
-      this.nomeTmp = this.autenticaForm.get("nome").value;
-    }
-
-    try {
-      const credencial = await this.servicoAutenticacao.autenticacao(this.configs.ehLogin, this.nomeTmp, this.autenticaForm.get('email').value, this.autenticaForm.get('password').value);
-      console.log("Login com sucesso", credencial);
-      console.log("redirecionando...");
-      this.navCtrl.navigateForward('tarefas-list');
-
-    } catch (e) {
-      console.log("ERROR", e);
-
-    }finally{
-      loading.dismiss();
-    }
-  }
-
-  get nome(): FormControl {
-    return <FormControl>this.autenticaForm.get('nome');
-  }
-
-  get email(): FormControl {
-    return <FormControl>this.autenticaForm.get('email');
-  }
-
-  get password(): FormControl {
-    return <FormControl>this.autenticaForm.get('password');
-  }
-
-  async loading():Promise<HTMLIonLoadingElement>{
-    const loading = await  this.loadingCtrl.create({
-      message: 'Autenticando...'
-    });
-    await loading.present();
-    return loading;
   }
 
   //Quando o usuario clicar para criar conta ou que já tem conta
@@ -103,7 +59,9 @@ export class LoginPage implements OnInit {
     }
   }
 
-  async toast(options?: ToastOptions): Promise<HTMLIonToastElement>{
+  /*Metodos Async*/
+
+  async toast(options?: ToastOptions): Promise<HTMLIonToastElement> {
 
     const toast = await this.toastCtrl.create({
       position: 'bottom',
@@ -117,5 +75,51 @@ export class LoginPage implements OnInit {
     return toast;
 
   }
+
+  async loading(): Promise<HTMLIonLoadingElement> {
+    const loading = await this.loadingCtrl.create({
+      message: 'Autenticando...'
+    });
+    await loading.present();
+    return loading;
+  }
+
+  //Função chamada quando o formulario é enviado
+  async onSubmit(provedor: string): Promise<void> {
+    console.log("ta funcionando", this.autenticaForm);
+    const loading = await this.loading();
+    if (this.configs.ehLogin) {
+      this.nomeTmp = "";
+    } else {
+      this.nomeTmp = this.autenticaForm.get("nome").value;
+    }
+
+    try {
+      const credencial = await this.servicoAutenticacao.autenticacao(this.configs.ehLogin, this.nomeTmp, this.autenticaForm.get('email').value, this.autenticaForm.get('password').value);
+      console.log("Login com sucesso", credencial);
+      console.log("redirecionando...");
+      this.navCtrl.navigateForward('tarefas-list');
+
+    } catch (e) {
+      console.log("ERROR", e);
+
+    } finally {
+      loading.dismiss();
+    }
+  }
+
+
+  get nome(): FormControl {
+    return <FormControl>this.autenticaForm.get('nome');
+  }
+
+  get email(): FormControl {
+    return <FormControl>this.autenticaForm.get('email');
+  }
+
+  get password(): FormControl {
+    return <FormControl>this.autenticaForm.get('password');
+  }
+
 
 }
