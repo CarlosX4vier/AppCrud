@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { AutenticacaoService } from 'src/app/core/services/autenticacao.service';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { ToastOptions } from '@ionic/core';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,7 @@ export class LoginPage implements OnInit {
   //Criando validador do nome separado do autenticaForm para que ele seja inserido depois
   private nomeControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
-  constructor(private servicoAutenticacao: AutenticacaoService, private fb: FormBuilder) { }
+  constructor(private servicoAutenticacao: AutenticacaoService, private fb: FormBuilder, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.createForm();
@@ -40,6 +42,7 @@ export class LoginPage implements OnInit {
   //Função chamada quando o formulario é enviado
   async onSubmit(provedor: string): Promise<void> {
     console.log("ta funcionando", this.autenticaForm);
+    const loading = await this.loading();
     if (this.configs.ehLogin) {
       this.nomeTmp = "";
     } else {
@@ -54,6 +57,8 @@ export class LoginPage implements OnInit {
     } catch (e) {
       console.log("ERROR", e);
 
+    }finally{
+      loading.dismiss();
     }
   }
 
@@ -67,6 +72,14 @@ export class LoginPage implements OnInit {
 
   get password(): FormControl {
     return <FormControl>this.autenticaForm.get('password');
+  }
+
+  async loading():Promise<HTMLIonLoadingElement>{
+    const loading = await  this.loadingCtrl.create({
+      message: 'Autenticando...'
+    });
+    await loading.present();
+    return loading;
   }
 
   //Quando o usuario clicar para criar conta ou que já tem conta
@@ -88,4 +101,20 @@ export class LoginPage implements OnInit {
       this.configs.acaoSecundaria = 'Já possuo uma conta';
     }
   }
+
+  async toast(options?: ToastOptions): Promise<HTMLIonToastElement>{
+
+    const toast = await this.toastCtrl.create({
+      position: 'bottom',
+      duration: 3000,
+      showCloseButton: true,
+      closeButtonText: "Ok",
+      ...options
+    });
+
+    await toast.present();
+    return toast;
+
+  }
+
 }
