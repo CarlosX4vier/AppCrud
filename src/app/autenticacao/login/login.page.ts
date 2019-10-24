@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { AutenticacaoService } from 'src/app/core/services/autenticacao.service';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, NavController } from '@ionic/angular';
 import { ToastOptions } from '@ionic/core';
 
 @Component({
@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
   //Criando validador do nome separado do autenticaForm para que ele seja inserido depois
   private nomeControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
-  constructor(private servicoAutenticacao: AutenticacaoService, private fb: FormBuilder, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
+  constructor(private navCtrl: NavController,private servicoAutenticacao: AutenticacaoService, private fb: FormBuilder, private loadingCtrl: LoadingController, private toastCtrl: ToastController) { }
 
   ngOnInit() {
     this.createForm();
@@ -53,6 +53,7 @@ export class LoginPage implements OnInit {
       const credencial = await this.servicoAutenticacao.autenticacao(this.configs.ehLogin, this.nomeTmp, this.autenticaForm.get('email').value, this.autenticaForm.get('password').value);
       console.log("Login com sucesso", credencial);
       console.log("redirecionando...");
+      this.navCtrl.navigateForward('tarefas-list');
 
     } catch (e) {
       console.log("ERROR", e);
