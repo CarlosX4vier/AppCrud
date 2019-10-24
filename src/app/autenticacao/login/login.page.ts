@@ -84,6 +84,7 @@ export class LoginPage implements OnInit {
     return loading;
   }
 
+
   //Função chamada quando o formulario é enviado
   async onSubmit(provedor: string): Promise<void> {
     console.log("ta funcionando", this.autenticaForm);
@@ -108,7 +109,7 @@ export class LoginPage implements OnInit {
     }
   }
 
-
+  /*Gets do formulario */
   get nome(): FormControl {
     return <FormControl>this.autenticaForm.get('nome');
   }
