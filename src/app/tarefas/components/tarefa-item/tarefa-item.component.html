@@ -1,7 +1,20 @@
-<ion-item-sliding>
-  <ion-item>
+<ion-item-sliding #sliding>
+
+  <ion-item (click)="update.emit(tarefa)">
     {{tarefa.titulo}}
-    <ion-toggle slot="end" color="primary" [checked]="tarefa.realizada">
-    </ion-toggle>
+    <ion-toggle slot="end" color="primary" [checked]="tarefa.realizada"> </ion-toggle>
   </ion-item>
+
+  <ion-item-options side="start">
+
+    <ion-item-option color="danger" (click)="delete.emit(tarefa)">
+      <ion-icon name="trash" slot="ion-only"></ion-icon>
+    </ion-item-option>
+
+    <ion-item-option (click)="update.emit(tarefa)">
+      <ion-icon name="create" slot="ion-only"></ion-icon>
+    </ion-item-option>
+
+  </ion-item-options>
+
 </ion-item-sliding>

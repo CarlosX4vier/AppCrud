@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Tarefa } from '../../pages/model/tarefa.model';
+import { Tarefa } from '../../model/tarefa.model';
 
 @Component({
   selector: 'app-tarefa-item',
