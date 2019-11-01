@@ -6,9 +6,9 @@
 
 <ion-content>
   <ion-list>
-    <ion-item>
-      <ion-label>Aprender IONIC</ion-label>
-    </ion-item>
+    <app-tarefa-item *ngFor="let tf of(tarefas$ | async) " [tarefa]="tf">
+
+    </app-tarefa-item>
   </ion-list>
 
   <ion-fab horizontal="end" vertical="bottom">

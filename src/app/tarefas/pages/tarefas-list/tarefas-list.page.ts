@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Tarefa } from '../../model/tarefa.model';
 
 @Component({
   selector: 'app-tarefas-list',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TarefasListPage implements OnInit {
 
+  tarefas$ = new Observable<Tarefa[]>();
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.tarefas$ = of([
+      { id: "12345678aabb", titulo: "Estudar Angular", realizada: false },
+      { id: "12345678ccbd", titulo: "Estudar Ionic", realizada: false }
+    ]);
   }
-
 }

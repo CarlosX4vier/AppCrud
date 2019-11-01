@@ -2,16 +2,17 @@
 
   <ion-item (click)="update.emit(tarefa)">
     {{tarefa.titulo}}
-    <ion-toggle slot="end" color="primary" [checked]="tarefa.realizada"> </ion-toggle>
+    <ion-toggle slot="end" color="primary" [checked]="tarefa.realizada"
+      (click)="realizada.emit(tarefa); $event.stopPropagation()"> </ion-toggle>
   </ion-item>
 
   <ion-item-options side="start">
 
-    <ion-item-option color="danger" (click)="delete.emit(tarefa)">
+    <ion-item-option color="danger" (click)="delete.emit(tarefa); sliding.close()">
       <ion-icon name="trash" slot="ion-only"></ion-icon>
     </ion-item-option>
 
-    <ion-item-option (click)="update.emit(tarefa)">
+    <ion-item-option (click)="update.emit(tarefa); sliding.close()">
       <ion-icon name="create" slot="ion-only"></ion-icon>
     </ion-item-option>
 
